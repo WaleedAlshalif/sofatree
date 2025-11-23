@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
+import InputForm from './components/InputForm';
 
-function App() {
+export default function App() {
   return (
     <div className="container">
       <h1 className="app-title">SofaTree</h1>
@@ -9,8 +10,7 @@ function App() {
       
       <div className="main-content">
         <div className="input-section">
-          <h2>Choose Input Method</h2>
-          <p>Form will be implemented on Day 2</p>
+          <InputForm />
         </div>
         
         <div className="visualization-section">
@@ -21,5 +21,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
