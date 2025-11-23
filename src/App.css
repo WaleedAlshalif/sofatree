@@ -173,3 +173,41 @@ body {
 .submit-btn:active {
     transform: translateY(0);
 }
+
+
+/* Tree Preview Styles */
+
+.tree-preview {
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+}
+
+.tree-preview h4 {
+    color: #38a169;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.tree-structure {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    overflow-x: auto;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+
+/* Loading State */
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
