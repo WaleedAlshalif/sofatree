@@ -26,7 +26,7 @@ const InputForm = ({ onTreeGenerated }) => {
         onTreeGenerated(result.tree);
       }
       
-      alert('Tree generated successfully!');
+      alert('Tree generated successfully!(*_*) ');
       
     } catch (error) {
       alert(`Unexpected error: ${error.message}`);

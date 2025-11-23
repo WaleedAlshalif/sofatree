@@ -211,3 +211,211 @@ body {
     cursor: not-allowed;
     transform: none !important;
 }
+
+
+/* Tree Visualization Styles */
+
+.tree-container {
+    background: white;
+    border-radius: 8px;
+    padding: 0;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.tree-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f7fafc;
+    border-radius: 8px 8px 0 0;
+}
+
+.tree-header h3 {
+    margin: 0;
+    color: #2d3748;
+    font-size: 1.1rem;
+}
+
+.tree-legend {
+    display: flex;
+    gap: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #718096;
+}
+
+.tree-content {
+    padding: 10px 0;
+}
+
+
+/* Tree Node Styles */
+
+.tree-node {
+    user-select: none;
+}
+
+.node-content {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f7fafc;
+}
+
+.node-content:hover {
+    background-color: #edf2f7;
+}
+
+.node-content.folder {
+    font-weight: 600;
+}
+
+.node-content.file {
+    color: #718096;
+}
+
+.expand-icon {
+    margin-right: 5px;
+    color: #a0aec0;
+    display: flex;
+    align-items: center;
+}
+
+.node-icon {
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    color: #667eea;
+}
+
+.node-content.file .node-icon {
+    color: #48bb78;
+}
+
+.node-name {
+    flex: 1;
+    font-size: 14px;
+}
+
+.node-path {
+    font-size: 11px;
+    color: #a0aec0;
+    margin-left: 8px;
+}
+
+.node-children {
+    border-left: 2px solid #e2e8f0;
+    margin-left: 20px;
+}
+
+
+/* SVG Tree Styles */
+
+.svg-tree-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.svg-tree {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: white;
+}
+
+.node-circle {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.node-circle:hover {
+    r: 22;
+    stroke-width: 3;
+}
+
+.svg-tree-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #718096;
+    background: #f7fafc;
+    border-radius: 8px;
+    border: 2px dashed #cbd5e0;
+}
+
+
+/* Tabs Styles */
+
+.tabs {
+    display: flex;
+    background: #f7fafc;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 500;
+    color: #718096;
+    transition: all 0.3s ease;
+}
+
+.tab-button.active {
+    background: white;
+    color: #667eea;
+    border-bottom: 2px solid #667eea;
+}
+
+.tab-button:hover:not(.active) {
+    background: #edf2f7;
+    color: #4a5568;
+}
+
+.visualization-content {
+    background: white;
+    border-radius: 0 0 8px 8px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #718096;
+    background: #f7fafc;
+    border-radius: 8px;
+    border: 2px dashed #cbd5e0;
+}
+
+
+/* Scrollbar Styles */
+
+.tree-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.tree-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.tree-container::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 3px;
+}
+
+.tree-container::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
