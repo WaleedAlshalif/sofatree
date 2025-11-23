@@ -1,18 +1,45 @@
-# React + Vite
+#  SofaTree - Interactive Folder Tree Visualization
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A beautiful and interactive React application for visualizing folder structures as tree diagrams.
 
-Currently, two official plugins are available:
+##  Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dual Input Methods**: JSON input or folder path parsing
+- **Interactive Tree Visualization**: Both hierarchical and SVG views
+- **Zoom & Pan**: Smooth navigation for large trees
+- **Tooltips**: Rich information on hover
+- **Export Capability**: Save your tree structures as JSON
+- **Responsive Design**: Works on desktop and mobile
+- **Local Storage**: Automatically saves your work
 
-## React Compiler
+##  Quick Start
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+1. **Choose Input Type**:
+   - **JSON**: Paste your folder structure as JSON
+   - **Folder Path**: Enter a path like `C:/Users/Name/Documents`
 
-Note: This will impact Vite dev & build performances.
+2. **Generate Tree**: Click "Generate Tree" to create the visualization
 
-## Expanding the ESLint configuration
+3. **Interact**:
+   - Click folders to expand/collapse
+   - Hover for detailed information
+   - Use zoom and pan in SVG view
+   - Switch between hierarchy and interactive views
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+##  Input Formats
+
+### JSON Format
+```json
+{
+  "name": "root",
+  "type": "folder",
+  "children": [
+    {
+      "name": "documents",
+      "type": "folder",
+      "children": [
+        {"name": "file.txt", "type": "file"}
+      ]
+    }
+  ]
+}

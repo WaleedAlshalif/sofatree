@@ -60,13 +60,13 @@ const TreeNode = ({ node, level }) => {
 
   const paddingLeft = level * 20 + 10;
 
-  // محتوى الـ Tooltip
+  // محتوى الـ Tooltip - مصحح
   const tooltipContent = (
     <div className="node-tooltip">
       <div className="tooltip-header">
-        <strong>{node.name}</strong>
-        <span className={`node-type ${node.type}`}>
-          {node.type}
+        <strong>{node.name || 'Unnamed Node'}</strong>
+        <span className={`node-type ${node.type || 'file'}`}>
+          {node.type || 'file'}
         </span>
       </div>
       {node.path && (
@@ -75,7 +75,8 @@ const TreeNode = ({ node, level }) => {
         </div>
       )}
       <div className="tooltip-info">
-        <div>ID: <code>{node.id.substring(0, 8)}...</code></div>
+        {/* التصحيح هنا - التحقق من وجود node.id أولاً */}
+        <div>ID: <code>{(node.id || 'unknown').substring(0, 8)}...</code></div>
         {hasChildren && (
           <div>Children: {node.children.length}</div>
         )}
@@ -105,8 +106,8 @@ const TreeNode = ({ node, level }) => {
             {isFolder ? <Folder size={18} /> : <File size={18} />}
           </span>
           
-          <span className="node-name" title={node.name}>
-            {node.name}
+          <span className="node-name" title={node.name || 'Unnamed'}>
+            {node.name || 'Unnamed Node'}
           </span>
           
           {node.path && (
@@ -129,7 +130,7 @@ const TreeNode = ({ node, level }) => {
           <div className="children-content">
             {node.children.map((child) => (
               <TreeNode 
-                key={child.id} 
+                key={child.id || Math.random().toString()} 
                 node={child} 
                 level={level + 1} 
               />
