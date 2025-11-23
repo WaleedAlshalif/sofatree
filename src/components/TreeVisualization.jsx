@@ -1,5 +1,6 @@
-import React from 'react';
-import { Folder, File, ChevronRight, ChevronDown } from 'lucide-react';
+import React, { useState } from 'react';
+import { Folder, File, ChevronRight, ChevronDown, Info } from 'lucide-react';
+import Tooltip from './Tooltip';
 
 const TreeVisualization = ({ treeData }) => {
   if (!treeData) {
@@ -23,6 +24,12 @@ const TreeVisualization = ({ treeData }) => {
             <File size={16} />
             <span>File</span>
           </div>
+          <Tooltip content="Click folders to expand/collapse • Hover for details">
+            <div className="legend-item hint">
+              <Info size={14} />
+              <span>Hover for info</span>
+            </div>
+          </Tooltip>
         </div>
       </div>
       
@@ -33,57 +40,103 @@ const TreeVisualization = ({ treeData }) => {
   );
 };
 
-// مكون العقدة الفردية
+// مكون العقدة الفردية مع Animations
 const TreeNode = ({ node, level }) => {
   const [isExpanded, setIsExpanded] = React.useState(node.isExpanded || false);
+  const [isAnimating, setIsAnimating] = React.useState(false);
   const hasChildren = node.children && node.children.length > 0;
   const isFolder = node.type === 'folder';
 
-  const handleToggle = () => {
+  const handleToggle = async () => {
     if (isFolder && hasChildren) {
+      setIsAnimating(true);
+      // تأخير بسيط لتظهر Animation بشكل أفضل
+      await new Promise(resolve => setTimeout(resolve, 50));
       setIsExpanded(!isExpanded);
+      // إنهاء حالة Animation بعد انتهاء الانتقال
+      setTimeout(() => setIsAnimating(false), 300);
     }
   };
 
   const paddingLeft = level * 20 + 10;
 
-  return (
-    <div className="tree-node">
-      <div 
-        className={`node-content ${isFolder ? 'folder' : 'file'} ${hasChildren ? 'has-children' : ''}`}
-        style={{ paddingLeft: `${paddingLeft}px` }}
-        onClick={handleToggle}
-      >
-        {isFolder && hasChildren && (
-          <span className="expand-icon">
-            {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-          </span>
-        )}
-        
-        <span className="node-icon">
-          {isFolder ? <Folder size={18} /> : <File size={18} />}
+  // محتوى الـ Tooltip
+  const tooltipContent = (
+    <div className="node-tooltip">
+      <div className="tooltip-header">
+        <strong>{node.name}</strong>
+        <span className={`node-type ${node.type}`}>
+          {node.type}
         </span>
-        
-        <span className="node-name" title={node.path}>
-          {node.name}
-        </span>
-        
-        {node.path && (
-          <span className="node-path">({node.path})</span>
-        )}
       </div>
-
-      {isExpanded && hasChildren && (
-        <div className="node-children">
-          {node.children.map((child) => (
-            <TreeNode 
-              key={child.id} 
-              node={child} 
-              level={level + 1} 
-            />
-          ))}
+      {node.path && (
+        <div className="tooltip-path">
+          📍 <span>{node.path}</span>
         </div>
       )}
+      <div className="tooltip-info">
+        <div>ID: <code>{node.id.substring(0, 8)}...</code></div>
+        {hasChildren && (
+          <div>Children: {node.children.length}</div>
+        )}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={`tree-node ${isAnimating ? 'animating' : ''}`}>
+      <Tooltip content={tooltipContent} delay={200}>
+        <div 
+          className={`node-content ${isFolder ? 'folder' : 'file'} ${hasChildren ? 'has-children' : ''} ${isExpanded ? 'expanded' : ''}`}
+          style={{ paddingLeft: `${paddingLeft}px` }}
+          onClick={handleToggle}
+        >
+          {isFolder && hasChildren && (
+            <span className="expand-icon">
+              {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+            </span>
+          )}
+          
+          {!isFolder && hasChildren && (
+            <span className="expand-icon placeholder"></span>
+          )}
+          
+          <span className="node-icon">
+            {isFolder ? <Folder size={18} /> : <File size={18} />}
+          </span>
+          
+          <span className="node-name" title={node.name}>
+            {node.name}
+          </span>
+          
+          {node.path && (
+            <span className="node-path">
+              {node.path.split('/').pop()}
+            </span>
+          )}
+
+          {/* مؤشرات إضافية */}
+          {hasChildren && (
+            <span className="children-count">
+              ({node.children.length})
+            </span>
+          )}
+        </div>
+      </Tooltip>
+
+      <div className={`node-children ${isExpanded ? 'expanded' : 'collapsed'}`}>
+        {isExpanded && hasChildren && (
+          <div className="children-content">
+            {node.children.map((child) => (
+              <TreeNode 
+                key={child.id} 
+                node={child} 
+                level={level + 1} 
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

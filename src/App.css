@@ -575,3 +575,427 @@ body {
 .svg-tree:active {
     cursor: grabbing;
 }
+
+
+/* Tooltip Styles */
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    transform: translateX(-50%);
+    animation: tooltipFadeIn 0.2s ease-out;
+}
+
+.tooltip-content {
+    background: #2d3748;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    max-width: 300px;
+    border: 1px solid #4a5568;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #2d3748;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+
+/* Node Tooltip Content */
+
+.node-tooltip {
+    text-align: left;
+}
+
+.tooltip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 10px;
+}
+
+.tooltip-header strong {
+    color: white;
+    font-size: 14px;
+}
+
+.node-type {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.node-type.folder {
+    background: #667eea;
+    color: white;
+}
+
+.node-type.file {
+    background: #48bb78;
+    color: white;
+}
+
+.tooltip-path {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #cbd5e0;
+}
+
+.tooltip-path span {
+    word-break: break-all;
+}
+
+.tooltip-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    color: #a0aec0;
+}
+
+.tooltip-info code {
+    background: #4a5568;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+
+/* Animation Styles for Tree Nodes */
+
+.tree-node {
+    transition: all 0.3s ease;
+}
+
+.tree-node.animating {
+    pointer-events: none;
+}
+
+.node-content {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.node-content::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: #667eea;
+    border-radius: 2px;
+    transition: height 0.3s ease;
+}
+
+.node-content.folder::before {
+    background: #667eea;
+}
+
+.node-content.file::before {
+    background: #48bb78;
+}
+
+.node-content:hover::before {
+    height: 80%;
+}
+
+.node-content.expanded {
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, transparent 100%);
+}
+
+
+/* Children Animation */
+
+.node-children {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.node-children.collapsed {
+    max-height: 0;
+    opacity: 0;
+}
+
+.node-children.expanded {
+    max-height: 2000px;
+    opacity: 1;
+}
+
+.children-content {
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Enhanced Node Styles */
+
+.children-count {
+    font-size: 11px;
+    color: #a0aec0;
+    background: #edf2f7;
+    padding: 2px 6px;
+    border-radius: 8px;
+    margin-left: 8px;
+}
+
+.expand-icon.placeholder {
+    width: 16px;
+    visibility: hidden;
+}
+
+.legend-item.hint {
+    cursor: help;
+    color: #667eea;
+    border: 1px dashed #667eea;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.legend-item.hint:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.node-content:hover {
+    transform: translateX(4px);
+}
+
+.node-content:hover .node-icon {
+    transform: scale(1.1);
+}
+
+.node-content:hover .expand-icon {
+    color: #667eea;
+}
+
+.node-icon {
+    transition: transform 0.2s ease;
+}
+
+.expand-icon {
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.node-content.expanded .expand-icon {
+    transform: rotate(0deg);
+}
+
+.node-content:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.tree-container {
+    scroll-behavior: smooth;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.tree-node.animating .node-content {
+    animation: pulse 0.6s ease;
+}
+
+
+/* Enhanced SVG Tree Styles */
+
+.tree-link {
+    transition: stroke 0.2s ease;
+}
+
+.tree-link:hover {
+    stroke: #667eea;
+    stroke-width: 3;
+}
+
+.node-emoji {
+    transition: transform 0.2s ease;
+}
+
+.node-group:hover .node-emoji {
+    transform: scale(1.1);
+}
+
+.node-hover-ring {
+    animation: pulseRing 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseRing {
+    0% {
+        opacity: 0.7;
+        r: 24;
+    }
+    50% {
+        opacity: 0.3;
+        r: 26;
+    }
+    100% {
+        opacity: 0.7;
+        r: 24;
+    }
+}
+
+
+/* Tree Stats */
+
+.tree-stats {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 12px;
+    background: #f7fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.stat-item {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+}
+
+.stat-label {
+    color: #718096;
+    font-weight: 500;
+}
+
+.stat-value {
+    color: #2d3748;
+    font-weight: 600;
+    background: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+}
+
+
+/* Enhanced Interaction Hints */
+
+.interaction-hints {
+    text-align: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+}
+
+
+/* Improved Zoom Controls */
+
+.zoom-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    z-index: 10;
+}
+
+
+/* Enhanced Node Groups */
+
+.node-group {
+    transition: filter 0.2s ease;
+}
+
+.node-group:hover {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+
+/* Responsive Improvements */
+
+@media (max-width: 768px) {
+    .tree-stats {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+    .interaction-hints {
+        font-size: 10px;
+        padding: 8px;
+    }
+    .zoom-controls {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+
+/* Smooth Transitions */
+
+.svg-tree * {
+    transition: all 0.3s ease;
+}
+
+
+/* Focus States for Accessibility */
+
+.node-group:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+    border-radius: 20px;
+}
